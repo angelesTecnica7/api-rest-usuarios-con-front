@@ -5,7 +5,7 @@ export const getUserByEmail = async(email) => {
     try {
         const connection = await pool.getConnection();
         const [rows] = await connection.query(sql, [email]);
-        connection.release();   
+        connection.release(); 
         return rows                
     } catch (error) {
         return error
