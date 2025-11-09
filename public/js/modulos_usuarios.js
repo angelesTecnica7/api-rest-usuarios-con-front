@@ -363,3 +363,74 @@ document.querySelector('#btn_act_datos').addEventListener('click', () => {
 
 })
 
+/********************************************************/
+/*              Cambiar Contraseña               */
+/********************************************************/
+
+document.querySelector('#btn_change_pass').addEventListener('click', () => {
+
+    //muestro formulario
+    document.querySelector('#changePass').style.display = 'block'
+
+    //selecciono el formulario
+    const formChangePass = document.forms['formChangePass']
+
+    formChangePass.addEventListener('submit', (event) => {
+        console.log('presione btn')
+        /**************************************************************** */
+        //    1RA PARTE: PREPARO EL JSON PARA ENVIAR AL BACKEND
+        /**************************************************************** */
+        //detengo envio de formulario
+        event.preventDefault()
+
+        //obtengo datos del campo
+        const nvoPass = formChangePass.pass.value
+        console.log(nvoPass)
+
+        //creo objeto con los datos obtenidos
+        const nvoPassword = { Pass: nvoPass }
+        // console.log(nvoUsuario)
+
+        //convierto el objeto a json para pasarlo por la API fetch al backend
+        const nvoPasswordJson = JSON.stringify(nvoPassword)
+        console.log(nvoPasswordJson)
+        /********************************************************************************************/
+        //2DA PARTE: ENVIO LA PETICION Y LOS DATOS AL BACKEND Y ESPERO LA RESPUETA (REQUEST/RESPONSA)
+        /********************************************************************************************/
+        //declaro en enpoint
+        const endpoint = 'http://localhost:3000/users/setPassword'
+
+        //funcion que envia los datos al datos al backend para que sean registrados
+        const changePass = async () => {
+            try {
+                const enviarDatos = await fetch(endpoint, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: nvoPasswordJson
+                })
+                //obtengo la respuesta del backend
+                const response = await enviarDatos.json()
+                // console.log(response)
+                
+                alert(response.message)
+
+                //redirecciono al index
+                window.location.href = '/'
+
+            } catch (error) {
+                console.log(error)
+
+            }
+        }
+        //ejecuto la funcion creada
+        changePass()
+
+    })
+
+
+
+
+})
+

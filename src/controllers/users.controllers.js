@@ -131,8 +131,32 @@ export const uploadImage = (req, res) => {
     res.send('subir foto perfil')
 }
 
-export const setPassword = (req, res) => {
-    res.send('cambiar contraseña')
+export const setPassword = async(req, res) => {
+     //desestructuro contraseña del body, para verificar que no esten vacio
+    const { Pass } = req.body
+   
+
+    //verifico que los datos se hayan completado
+    if (!Pass) {
+        return res.status(422).json({ message: "Nueva contraseña requerida" })
+    }
+    const passwordHash = await bcrypt.hash(Pass, 10) // console.log(req.body)
+    req.body.Pass = passwordHash //coloco en req.body la contraseña encriptada
+
+    // req.user se definio en verifyToken y contiene el payload del token
+    const rows = await model.updateUser(req.user.id, req.body)
+
+    //si row trae el error del catch este es un objeto que tiene una propiedad
+    //  "errno" cod. de error
+    if (rows.errno) {
+        return res.status(500).json({message : `Error en consulta ${rows.errno}`})
+    }
+    //row devuelve muchos datos entre ellos "affectedRows" cantidad de registros afectados,
+    //  si es igual a cero no se modifico ningun registro
+    if (rows.affectedRows == 0) { return res.status(404).json({message: 'El usuario no existe'}) }
+    
+    //eliminamos la cookie del token, cerranos sesion
+    res.clearCookie("access_token").json({message: 'Contraseña actualizada'})
 }
 
 export const deleteAccount = async(req, res) => {
