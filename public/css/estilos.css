@@ -1,0 +1,11 @@
+section#sesion, section#logout {
+    display: none;
+}
+
+section#registro, section#login {
+    display: block;
+}
+
+#update, #changePass, #image {
+    display: none;
+}

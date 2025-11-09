@@ -1,11 +1,13 @@
 import express from 'express'
 import cors from 'cors'
+import cookieParser from "cookie-parser";   
 const app = express()
 const PORT = 3000
 
 app.use(express.json())
 app.use(express.static('./public'))
 app.use(cors())
+app.use(cookieParser())
 
 import usersRouter from './src/routes/users.routes.js'
 app.use('/users', usersRouter)

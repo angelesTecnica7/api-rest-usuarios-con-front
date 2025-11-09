@@ -1,40 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de usuariost</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Registro de usuarios</title>
 </head>
+
 <body>
     <h1>FRONT API ADMINISTRACION DE USUARIOS</h1>
     <h2 id="message" style="color:red"></h2>
-<section id="registro">
-    <h2>registro de usuarios</h2>
-  
-                <form action="" id="registro">
-                    <label>Usuario</label>
-                    <input type="text" name="usuario">
-                    <label>Email</label>
-                    <input type="email" name="email">
-                    <label>Contraseña</label>
-                    <input type="password" name="pass">
-                    <input type="submit" value="Registrame">
-                </form>
-                
-</section>
+    <section id="registro">
+        <h2>registro de usuarios</h2>
 
-<section id="login">
-    <h2>Inicio de Sesion / login</h2>
-      <form action="" id="login">                  
-                    <label>Email</label>
-                    <input type="email" name="email">
-                    <label>Contraseña</label>
-                    <input type="password" name="pass">
-                    <input type="submit" value="Login">
-                </form>
-                
-</section>
+        <form action="" id="registro">
+            <label>Usuario</label>
+            <input type="text" name="usuario">
+            <label>Email</label>
+            <input type="email" name="email">
+            <label>Contraseña</label>
+            <input type="password" name="pass">
+            <input type="submit" value="Registrame">
+        </form>
 
-<script src="./js/modulos_usuarios.js"></script>
+    </section>
+
+    <section id="login">
+        <h2>Inicio de Sesion / login</h2>
+        <form action="" id="login">
+            <label>Email</label>
+            <input type="email" name="email">
+            <label>Contraseña</label>
+            <input type="password" name="pass">
+            <input type="submit" value="Login">
+        </form>
+
+    </section>
+
+    <section id="sesion">
+        <section id="usuario">
+            <h2>Sesion Iniciada por ${Nombre USUARIO}</h2>
+        </section>
+        <button class="btn_perfil">ver perfil</button>
+        <div id="perfil">
+            <div id="datos_perfil"></div>
+            <div id="actualizar">
+                <button id="btn_act_datos">Actualizar Datos</button>
+                <button class="btn_act_imagen">Actualizar Imagen</button>
+                <button class="btn_change_pass">Cambiar Contraseña</button>
+                <button id="btn_eliminar_cuenta" onclick="confirmarAccion()">Eliminar Cuenta</button>
+            </div>
+        </div>
+
+        <section id="update">
+            <form action="" id="formUpdate">
+                <label>Nuevo nombre usuario</label>
+                <input type="text" name="usuario" placeholder="escriba nuevo nombre">
+                <input type="submit" value="Actualizar">
+            </form>
+        </section>
+
+        <section id="image">
+            <form action="" id="formImage">
+                <label>Imagen</label>
+                <input type="file" name="imagen">
+                <input type="submit" value="Publicar">
+            </form>
+        </section>
+
+        <section id="changePass">
+            <form action="" id="formChangePass">
+                <label>Nueva Contraseña</label>
+                <input type="password" name="pass">
+                <input type="submit" value="Cambiar Contraseña">
+            </form>
+        </section>
+    </section>
+
+    <section id="logout">
+        <button class="btn_logout">Cerrar Sesion</button>
+    </section>
+
+    <script src="./js/modulos_usuarios.js"></script>
 </body>
+
 </html>

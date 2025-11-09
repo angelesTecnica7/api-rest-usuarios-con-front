@@ -5,7 +5,7 @@ import 'dotenv/config';
 // Middleware para verificar el token JWT
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization
-  console.log(authHeader)
+  // console.log(authHeader)
  
 
   if (!authHeader) {
