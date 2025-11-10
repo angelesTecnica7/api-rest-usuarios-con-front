@@ -7,7 +7,10 @@
 // deleteAccount
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-// import cookieParser from "cookie-parser";   
+
+// import multer from "multer";
+// const upload = multer({ dest: 'uploads/' })
+
 import 'dotenv/config';
 import * as model from '../model/users.model.js'
 
@@ -127,10 +130,6 @@ export const updateAccount = async(req, res) => {
     res.json({message: 'datos actualizados'})
 }
 
-export const uploadImage = (req, res) => {
-    res.send('subir foto perfil')
-}
-
 export const setPassword = async(req, res) => {
      //desestructuro contraseña del body, para verificar que no esten vacio
     const { Pass } = req.body
@@ -173,4 +172,25 @@ export const deleteAccount = async(req, res) => {
     if (rows.affectedRows == 0) { return res.status(404).json({message: 'El usuario no existe'}) }
         //eliminamos la cookie del token
     res.clearCookie("access_token").json({message:'Cuenta eliminada'})
+}
+
+export const uploadImage = async(req, res) => {
+    console.log('subiendo imagen')
+    console.log(req.file)
+    const { filename: image } = req.file
+    console.log(image)
+    const image_user = {Image : image}
+
+     // req.user se definio en verifyToken y contiene el payload del token
+    const rows = await model.updateUser(req.user.id, image_user)
+
+    //si row trae el error del catch este es un objeto que tiene una propiedad
+    //  "errno" cod. de error
+    if (rows.errno) {
+        return res.status(500).json({message : `Error en consulta ${rows.errno}`})
+    }
+    //row devuelve muchos datos entre ellos "affectedRows" cantidad de registros afectados,
+    //  si es igual a cero no se modifico ningun registro
+    if (rows.affectedRows == 0) { return res.status(404).json({message: 'El usuario no existe'}) }
+    res.json({message: 'datos actualizados'})
 }

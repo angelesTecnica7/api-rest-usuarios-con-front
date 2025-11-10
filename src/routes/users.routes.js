@@ -3,6 +3,22 @@ import { verifyToken, verifyT } from "../middlewares/verify-token-cookie.js"
 import { Router } from "express"
 const router = Router()
 
+import path from "path";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image_users')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage })
+
+// const upload = multer({ dest: 'uploads/' })
+
 import {
     verifySesionOpen,
     register,
@@ -25,8 +41,9 @@ router.get('/logout', logout)
 //rutas protegidas
 router.get('/account', verifyToken, showAccount)
 router.put('/upDate', verifyToken, updateAccount)
-router.post('/image', verifyToken, uploadImage)
 router.put('/setPassword', verifyToken, setPassword)
 router.delete('/deleteAccount', verifyToken, deleteAccount)
+
+router.post('/image', verifyToken, upload.single('imagen'), uploadImage)
 
 export default router

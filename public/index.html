@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>FRONT API ADMINISTRACION DE USUARIOS</h1>
+    <h1>FRONT API Administración de Usuarios</h1>
     <h2 id="message" style="color:red"></h2>
     <section id="registro">
         <h2>registro de usuarios</h2>
@@ -21,7 +21,7 @@
             <input type="email" name="email">
             <label>Contraseña</label>
             <input type="password" name="pass">
-            <input type="submit" value="Registrame">
+            <input class="submit" type="submit" value="Registrame">
         </form>
 
     </section>
@@ -33,7 +33,7 @@
             <input type="email" name="email">
             <label>Contraseña</label>
             <input type="password" name="pass">
-            <input type="submit" value="Login">
+            <input class="submit" type="submit" value="Login">
         </form>
 
     </section>
@@ -47,33 +47,36 @@
             <div id="datos_perfil"></div>
             <div id="actualizar">
                 <button id="btn_act_datos">Actualizar Datos</button>
-                <button class="btn_act_imagen">Actualizar Imagen</button>
+                <button id="btn_up_imagen">Actualizar Imagen</button>
                 <button id="btn_change_pass">Cambiar Contraseña</button>
                 <button id="btn_eliminar_cuenta" onclick="confirmarAccion()">Eliminar Cuenta</button>
             </div>
         </div>
 
         <section id="update">
+        <h2>Actualizar Datos</h2>
             <form action="" id="formUpdate">
                 <label>Nuevo nombre usuario</label>
                 <input type="text" name="usuario" placeholder="escriba nuevo nombre">
-                <input type="submit" value="Actualizar">
+                <input type="submit" class="submit" value="Actualizar">
             </form>
         </section>
 
         <section id="image">
-            <form action="" id="formImage">
+            <h2>Publicar imagen de perfil</h2>
+            <form action="/users/image" method="post"  id="formImage" enctype="multipart/form-data">
                 <label>Imagen</label>
-                <input type="file" name="imagen">
-                <input type="submit" value="Publicar">
+                <input type="file" name="imagen" accept="image/*">
+                <input type="submit" class="submit" value="Publicar">
             </form>
         </section>
 
         <section id="changePass">
+            <h2>Cambiar Contraseña</h2>
             <form action="" id="formChangePass">
                 <label>Nueva Contraseña</label>
                 <input type="password" name="pass">
-                <input type="submit" value="Cambiar Contraseña">
+                <input type="submit" class="submit" value="Cambiar Contraseña">
             </form>
         </section>
     </section>

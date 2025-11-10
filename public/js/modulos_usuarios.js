@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response === 202) {
                 //Oculto registro y login // Muestro perfil y cerrar sesion
                 const usuario = JSON.parse(localStorage.getItem('user'))
-                document.querySelector('#usuario').innerHTML = `<p> usuario: ${usuario}</p>`
+                document.querySelector('#usuario').innerHTML = `<p class="usuario">${usuario}</p>`
                 document.querySelector('#sesion').style.display = 'block'
                 document.querySelector('#logout').style.display = 'block'
                 document.querySelector('#registro').style.display = 'none'
@@ -85,7 +85,8 @@ formRegistro.addEventListener('submit', (event) => {
             //obtengo la respuesta del backend
             const response = await enviarDatos.json()
             // console.log(response)
-            document.querySelector('#message').innerHTML = response.message
+            // document.querySelector('#message').innerHTML = response.message
+            alert(response.message)
 
 
         } catch (error) {
@@ -164,7 +165,7 @@ formLogin.addEventListener('submit', (event) => {
                 localStorage.setItem('user', JSON.stringify(response.data))
 
                 //Oculto registro y login // Muestro perfil y cerrar sesion
-                document.querySelector('#usuario').innerHTML = `<p> Usuario: ${response.data}</p>`
+                document.querySelector('#usuario').innerHTML = `<p class="usuario"> ${response.data}</p>`
                 document.querySelector('#sesion').style.display = 'block'
                 document.querySelector('#logout').style.display = 'block'
                 document.querySelector('#registro').style.display = 'none'
@@ -334,7 +335,7 @@ document.querySelector('#btn_act_datos').addEventListener('click', () => {
                 //guardo nvo nombre  en el localStorage
                 localStorage.setItem('user', JSON.stringify(nvoNombre))
 
-                document.querySelector('#usuario').innerHTML = `<p> usuario: ${nvoNombre}</p>`
+                document.querySelector('#usuario').innerHTML = `<p class="usuario">${nvoNombre}</p>`
 
             } catch (error) {
                 console.log(error)
@@ -434,3 +435,39 @@ document.querySelector('#btn_change_pass').addEventListener('click', () => {
 
 })
 
+/********************************************************/
+/*               subir imagen perfil                    */
+/********************************************************/
+
+document.querySelector('#btn_up_imagen').addEventListener('click', () => {
+    console.log('quiero subir imagen')
+
+    //muestro formulario
+    document.querySelector('#image').style.display = 'block'
+
+    //selecciono el formulario
+    const formChangePass = document.forms['formImage']
+
+
+    //declaro en enpoint
+    const endpoint = 'http://localhost:3000/users/image'
+
+    //funcion que envia los datos al datos al backend para que sean registrados
+    const upImage = async () => {
+        try {
+            const cerrarSesion = await fetch(endpoint)
+            //obtengo la respuesta del backend
+            const response = await cerrarSesion.json()
+            // console.log(response)
+            // document.querySelector('#message').innerHTML=response.message
+
+            //elimino datos usuario del localStorage
+            localStorage.removeItem('user')
+            window.location.href = './'
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    //ejecuto la funcion creada
+    // upImage()
+})
