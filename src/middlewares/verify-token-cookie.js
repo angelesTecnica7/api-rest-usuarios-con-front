@@ -3,13 +3,12 @@ import 'dotenv/config';
 
 
 // Middleware para verificar el token JWT que esta en la cookie del usuario
-//ejemplo e martin gesualdo autenticacion coN JWT Y Cookies
 export const verifyT = (req, res, next) => {
 //  console.log( req.cookies.access_token)
   try {
     const token = req.cookies.access_token  // esto es permitido por la libreria cookie parser
     if(!token){
-        return res.status(403).json('Acceso no Autorizado')
+        return res.status(403).json({message: 'Acceso no Autorizado'})
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET)
     // console.log(payload)
@@ -27,11 +26,13 @@ export const verifyToken = (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET)
     // console.log(payload)
 
-    //creamos una request para toma desde aqui el id.user y realizar las consultas,
+    //creamos una request para tomar desde aqui el id.user y realizar las consultas,
     // no es necesario pasar el id desde el front
-    // es mas seguro porque todo el id, directamente del payload verificado
+    // es mas seguro porque toma el id, directamente del payload verificado
     req.user = payload
     next();   
-  } catch {}
+  } catch (error){
+    // res.send('error')
+  }
 
 }

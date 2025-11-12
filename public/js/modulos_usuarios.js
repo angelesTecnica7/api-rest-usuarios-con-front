@@ -233,7 +233,7 @@ document.querySelector('.btn_perfil').addEventListener('click', () => {
             // console.log(response)
             const perfil = `<p>Nombre: ${response.Name}</p>
             <p>Email: ${response.Email}</p>
-            <img src="${response.Image}" />`
+            <img src="image_users/${response.Image}" />`
             document.querySelector('#datos_perfil').innerHTML = perfil
         } catch (error) {
             console.log(error)

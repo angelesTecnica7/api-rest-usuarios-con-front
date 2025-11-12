@@ -3,8 +3,10 @@ import { verifyToken, verifyT } from "../middlewares/verify-token-cookie.js"
 import { Router } from "express"
 const router = Router()
 
+//para manejar los archivos de imagenes
 import path from "path";
 import multer from "multer";
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -17,7 +19,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
+// opcion basica: sube a iamgen directamente sin definir nombre ni destino
 // const upload = multer({ dest: 'uploads/' })
+
 
 import {
     verifySesionOpen,

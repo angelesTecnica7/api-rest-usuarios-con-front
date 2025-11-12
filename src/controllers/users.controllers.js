@@ -1,10 +1,4 @@
-// register,
-// login,
-// showAccount,
-// updateAccount,
-// uploadImage,
-// setPassword,
-// deleteAccount
+
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -51,8 +45,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     // console.log(req.body)
     
-    //verifico que los datos se hayan completado
+    // desestructuro req.boby para colocar sus valores en variables independientes
     const { Email, Pass } = req.body
+
+    //verifico que los datos se hayan completado
     if (!Email || !Pass) {
         return res.status(422).json({ message: "email y contraseña requeridos" })
     }
@@ -60,7 +56,8 @@ export const login = async (req, res) => {
     //verifico existencia del usuario por email en la db
     const user = await model.getUserByEmail(Email)
 
-    if (user.errno) { return res.status(500).send(`Error en consulta, buscando usuario ${rows.errno}`) }
+    //tomo la respuesta del modelo y actuo en consecuencia
+    if (user.errno) { return res.status(500).json({message: `Error en consulta, buscando usuario ${rows.errno}`}) }
     if (!user[0]) { return res.status(401).json({ message: "Credenciales invalidas" }) }
 
 
@@ -71,25 +68,26 @@ export const login = async (req, res) => {
         return res.status(401).json({ message: "Credenciales invalidas" })
     }
 
-    // const token = jwt.sign(
-    //     { id: user[0].id, type: user[0].Type_user },
-    //     process.env.JWT_SECRET,
-    //     {
-    //         expiresIn: "1h",
-    //     }
-    // )
+    // si la contraseña es valida, tenemos que crear una sesion
+    //y para esto haremos 2 pasos: 1) crear un token y 2) guardar el token en una cookie en el cliente
 
-    const payload = { id: user[0].ID_user, name: user[0].Name, type: user[0].Type_user }
+    //1) crear el token
+    const payload = { id: user[0].ID_user, name: user[0].Name, type: user[0].Type_user } //carga o datos del token, son publicos (puden verse)
     
     const expiration = { expiresIn: "24h" } // tiempo de expiracion del token
     const token = jwt.sign(payload, process.env.JWT_SECRET, expiration) //firma digital con la clave secreta
     // console.log(token)
+
+    //2) respondo al cliente con la orden de crear una cookie
     res.cookie("access_token", token,{
-        httpOnly: true, // la coolie solo se puede acceder en el servidor
+        httpOnly: true, // la cookie solo se puede acceder en el servidor
         // secure: true, //para que solo funciones con https
         sameSite: 'strict', // solo se puede acceder desde el mismo dominio
         maxAge: 1000*60*60 //la cookie tiene un tiempo de validez de una hora
     })
+
+    //creo data para enviarla al cliente con el proposito de guardarla en el localStorage,
+    // para mostrar el nombre del  usuario en sesion
     const data = user[0].Name
     res.status(202).json({ message: "sesion iniciada ", data})
 }
@@ -102,8 +100,8 @@ export const logout = (req, res) => {
 export const showAccount = async(req, res) => {
     // console.log(req.user)
    // req.user se definio en verifyToken y contiene el payload del token
-    const id = parseInt(req.user.id)
-    const rows = await model.getUserById(id)
+    // const id = parseInt(req.user.id)
+    const rows = await model.getUserById(req.user.id)
 
     //si rows trae el error del catch este es un objeto que tiene una propiedad 
     // "errno" cod. de error
@@ -175,17 +173,19 @@ export const deleteAccount = async(req, res) => {
 }
 
 export const uploadImage = async(req, res) => {
-    console.log('subiendo imagen')
     console.log(req.file)
-    const { filename: image } = req.file
-    console.log(image)
-    const image_user = {Image : image}
-
+    let Image = null
+   //tengo que verificar que se haya un archivo en req.file
+    if(req.file) {
+          //obtengo de req.file el nombre de la imagen
+    Image = req.file.filename
+    } 
+  
      // req.user se definio en verifyToken y contiene el payload del token
-    const rows = await model.updateUser(req.user.id, image_user)
+    // const rows = await model.updateUser(req.user.id, image_user)
+     const rows = await model.updateUser(req.user.id, { Image })
 
-    //si row trae el error del catch este es un objeto que tiene una propiedad
-    //  "errno" cod. de error
+    // "errno" cod. de error
     if (rows.errno) {
         return res.status(500).json({message : `Error en consulta ${rows.errno}`})
     }
