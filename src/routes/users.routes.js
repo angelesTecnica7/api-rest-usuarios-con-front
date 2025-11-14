@@ -6,36 +6,43 @@ const router = Router()
 //para manejar los archivos de imagenes
 import path from "path";
 import multer from "multer";
+    
+ 
+//determinamos que la imagen subira en primera instancia a la memoria, no el disco
+//una vez que la redimensionemos con sharp la guardaremos en el disco
+const storage = multer.memoryStorage();
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/image_users')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname))
+//Creamos un filtro para que solo se reciban imagenes
+const upload = multer({
+  storage, fileFilter: (req, file, cb) => {
+    if (
+      path.extname(file.originalname) != ".jpg" &&
+      path.extname(file.originalname) != ".jpeg" &&
+      path.extname(file.originalname) != ".gif" &&
+      path.extname(file.originalname) != ".png"
+     ){
+      //rechazamos el archivo
+      return cb(console.log('solo se aceptan archivos de imagenes'), false)
+    }
+      //aceptamos el archivo
+      return cb(null, true)
+   
   }
 })
 
-const upload = multer({ storage })
-
-// opcion basica: sube a iamgen directamente sin definir nombre ni destino
-// const upload = multer({ dest: 'uploads/' })
-
-
 import {
-    verifySesionOpen,
-    register,
-    login,
-    logout,
-    showAccount,
-    updateAccount,
-    uploadImage,
-    setPassword,
-    deleteAccount
- } from "../controllers/users.controllers.js"
+  verifySesionOpen,
+  register,
+  login,
+  logout,
+  showAccount,
+  updateAccount,
+  uploadImage,
+  setPassword,
+  deleteAccount
+} from "../controllers/users.controllers.js"
 
-
+//En la raiz se verifica si la sesion esta abierta
 router.get('/', verifyToken, verifySesionOpen)
 
 router.post('/register', register)

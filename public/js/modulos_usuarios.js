@@ -54,12 +54,8 @@ formRegistro.addEventListener('submit', (event) => {
     const email = formRegistro.email.value
     const pass = formRegistro.pass.value
 
-    //como no los tengo en el formulario los hardcodeo
-    const image = formRegistro.usuario.value + '.jpg'
-    const type = 0
-
     //creo objeto con los datos obtenidos
-    const nvoUsuario = { Name: usuario, Email: email, Image: image, Pass: pass, Type_user: type }
+    const nvoUsuario = { Name: usuario, Email: email, Pass: pass, }
     // console.log(nvoUsuario)
 
     //convierto el objeto a json para pasarlo por la API fetch al backend
@@ -231,9 +227,14 @@ document.querySelector('.btn_perfil').addEventListener('click', () => {
             //obtengo la respuesta del backend
             const response = await verPerfil.json()
             // console.log(response)
-            const perfil = `<p>Nombre: ${response.Name}</p>
-            <p>Email: ${response.Email}</p>
-            <img src="image_users/${response.Image}" />`
+            let perfil = `<p>Nombre: ${response.Name}</p>
+            <p>Email: ${response.Email}</p>`
+            if(!response.Image){
+                perfil += `<img src="image_users/silueta.png" />`
+            }else {
+                perfil += `<img src="image_users/${response.Image}" />`
+            }
+            
             document.querySelector('#datos_perfil').innerHTML = perfil
         } catch (error) {
             console.log(error)
@@ -414,7 +415,7 @@ document.querySelector('#btn_change_pass').addEventListener('click', () => {
                 //obtengo la respuesta del backend
                 const response = await enviarDatos.json()
                 // console.log(response)
-                
+
                 alert(response.message)
 
                 //redirecciono al index
