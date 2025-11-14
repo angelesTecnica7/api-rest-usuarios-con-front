@@ -22,11 +22,10 @@ const upload = multer({
       path.extname(file.originalname) != ".png"
      ){
       //rechazamos el archivo
-      return cb(console.log('solo se aceptan archivos de imagenes'), false)
+      return cb(null, false)
     }
       //aceptamos el archivo
       return cb(null, true)
-   
   }
 })
 

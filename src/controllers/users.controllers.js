@@ -183,49 +183,29 @@ export const deleteAccount = async (req, res) => {
 }
 
 export const uploadImage = async (req, res) => {
-    // if(!req.file) {
-    //     return res.json({message: "debe subir un a imagen"})
-    // }
-    // console.log(req.file)
-    //Hay que contemplar que pueden suceder 3 posibilidades:
+    if (!req.file) {
+        return res.json({ message: "debe subir una imagen valida" })
+    }
 
-    // 1 - no se suba ninguna imagen y NO haya una imagen previa (Image = null) 
-    let Image = null
-
-
-    // 2 - no se suba ninguna imagen pero HAY una imagen previa (Image = imagen previa)
-    let imagePreviaPath = ''
+    //enviamos a redimensionar y guardar la nueva imagen en disco
+    const Image = await upload(req.file)
+    
+    //buscamos si hay imagen previa para eliminar
     const searchImage = await model.getUserById(req.user.id)
-
     if (searchImage[0].Image !== null) {
-        //asignamos la imagen previa
-        Image = searchImage[0].Image
-
-        //definimos su path porque si se sube una imagen nueva hay que borrar la previa
-        imagePreviaPath = path.resolve(__dirname, "../../public/image_users", searchImage[0].Image)
-        // console.log(imagePath)
+        //definimos la ubicacion de la imagen previa
+        const imagePreviaPath = path.resolve(__dirname, "../../public/image_users", searchImage[0].Image)
+        // borramos imagen previa
+        fs.unlinkSync(imagePreviaPath)
     }
 
-    // 3 - Se sube una imagen, esta reemplaza al estado anterior (Image = nueva imagen ),
-    // si hay una imagen previa se elimina
-    if (req.file) {
-        console.log(req.file)
-
-        Image = await upload(req.file)
-
-        if (imagePreviaPath !== '') {
-            fs.unlinkSync(imagePreviaPath) //borramos la imagen previa
-        }
-    }
-
-    //llamamos al modelo para actualizar la imagen
+    //llamamos al modelo para actualizar la imagen en la db
     const rows = await model.updateUser(req.user.id, { Image })
     if (rows.errno) {
         return res.status(500).json({ message: `Error en consulta ${rows.errno}` })
     }
     if (rows.affectedRows == 0) { return res.status(404).json({ message: 'El usuario no existe' }) }
     res.json({ message: 'datos actualizados' })
-
 }
 
 const upload = async (file) => {
