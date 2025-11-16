@@ -49,7 +49,7 @@ export const register = async (req, res) => {
 
         //si el modelo registro 
         //row devuelve muchos datos entre ellos el id creado, es lo que retorno
-        res.status(201).json({ message: `${req.body.Name} Usuario creado con id ${rows.insertId} ` })
+        res.status(201).json({ message: `Nuevo Usuario Creado: ${req.body.Name}` })
     } catch (error) {
         return res.status(500).json({ message: 'ERROR al registrar' })
     }
@@ -122,6 +122,12 @@ export const showAccount = async (req, res) => {
 }
 
 export const updateAccount = async (req, res) => {
+    //desestructuro contraseña del body, para verificar que no esten vacio
+    const { Name } = req.body
+    //verifico que los datos se hayan completado
+    if (!Name) {
+        return res.status(422).json({ message: "Nuevo nombre requerido" })
+    }
     // req.user se definio en verifyToken y contiene el payload del token
     const rows = await model.updateUser(req.user.id, req.body)
 
@@ -196,8 +202,6 @@ export const uploadImage = async (req, res) => {
 export const setPassword = async (req, res) => {
     //desestructuro contraseña del body, para verificar que no esten vacio
     const { Pass } = req.body
-
-
     //verifico que los datos se hayan completado
     if (!Pass) {
         return res.status(422).json({ message: "Nueva contraseña requerida" })

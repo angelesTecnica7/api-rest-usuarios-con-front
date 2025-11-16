@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // de haber sesion muestro perfil y cierre de sesion
     // de no haber sesion muestro login y registrar
 
-    //declaro en enpoint
-    const endpoint = 'http://localhost:3000/users/'
+  
 
     //funcion que envia los datos al datos al backend para que sean registrados
     const InSesion = async () => {
+          //declaro en enpoint
+    const endpoint = 'http://localhost:3000/users/'
         // try {
         const enSesion = await fetch(endpoint)
         //obtengo la respuesta del backend, en este caso un estado
@@ -32,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     //ejecutamos la funcion creada
     InSesion()
-})
 
 
 /********************************************************/
@@ -391,7 +391,6 @@ document.querySelector('#btn_up_imagen').addEventListener('click', () => {
 })
 
 
-
 /********************************************************/
 /*              Cambiar Contraseña               */
 /********************************************************/
@@ -496,3 +495,5 @@ function confirmarAccion() {
         alert("¡Cuenta eliminada!");
     }
 }
+
+})// fin del DOMContentLoaded
