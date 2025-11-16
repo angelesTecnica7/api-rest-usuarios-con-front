@@ -1,13 +1,13 @@
-
-import { verifyToken, verifyT } from "../middlewares/verify-token-cookie.js"
 import { Router } from "express"
 const router = Router()
 
-//para manejar los archivos de imagenes
+//importamos el middleware que creamos para validar el token que envia el cliente
+import { verifyToken, verifyT } from "../middlewares/verify-token-cookie.js"
+
+//paquetes necesarios para subir las imagenes
 import path from "path";
 import multer from "multer";
     
- 
 //determinamos que la imagen subira en primera instancia a la memoria, no el disco
 //una vez que la redimensionemos con sharp la guardaremos en el disco
 const storage = multer.memoryStorage();
@@ -51,9 +51,8 @@ router.get('/logout', logout)
 //rutas protegidas
 router.get('/account', verifyToken, showAccount)
 router.put('/upDate', verifyToken, updateAccount)
+router.put('/image', verifyToken, upload.single('imagen'), uploadImage)
 router.put('/setPassword', verifyToken, setPassword)
 router.delete('/deleteAccount', verifyToken, deleteAccount)
-
-router.post('/image', verifyToken, upload.single('imagen'), uploadImage)
 
 export default router

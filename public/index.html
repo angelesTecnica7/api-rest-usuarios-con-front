@@ -45,7 +45,7 @@
         <button class="btn_perfil">ver perfil</button>
         <div id="perfil">
             <div id="datos_perfil"></div>
-            <div id="actualizar">
+            <div id="btn_update">
                 <button id="btn_act_datos">Actualizar Datos</button>
                 <button id="btn_up_imagen">Actualizar Imagen</button>
                 <button id="btn_change_pass">Cambiar Contraseña</button>
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <section id="update">
+        <section id="update" class="formu oculto">
         <h2>Actualizar Datos</h2>
             <form action="" id="formUpdate">
                 <label>Nuevo nombre usuario</label>
@@ -62,16 +62,16 @@
             </form>
         </section>
 
-        <section id="image">
+        <section id="image" class="formu oculto">
             <h2>Publicar imagen de perfil</h2>
-            <form action="/users/image" method="post"  id="formImage" enctype="multipart/form-data">
+            <form action=""  id="formImage" enctype="multipart/form-data">
                 <label>Imagen</label>
                 <input type="file" name="imagen" accept="image/*">
                 <input type="submit" class="submit" value="Publicar">
             </form>
         </section>
 
-        <section id="changePass">
+        <section id="changePass" class="formu oculto">
             <h2>Cambiar Contraseña</h2>
             <form action="" id="formChangePass">
                 <label>Nueva Contraseña</label>

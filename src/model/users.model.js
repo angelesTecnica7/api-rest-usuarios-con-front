@@ -30,11 +30,9 @@ export const getUserById = async(id) => {
         const connection = await pool.getConnection();
         const [rows] = await connection.query(sql, [id]);
         //hay que pasale el sql y el dato que reemplaza el signo ?
-        connection.release();
-        // console.log(rows)
+        connection.release();       
         return rows         
-    } catch (error) {
-        // console.log(error)
+    } catch (error) {       
         return error
     }
 }

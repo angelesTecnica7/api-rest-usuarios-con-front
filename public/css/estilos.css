@@ -6,7 +6,11 @@ section#registro, section#login {
     display: block;
 }
 
-#update, #changePass, #image {
+div#btn_update {
+    display: none;
+}
+
+section#update, section#changePass, section#image {
     display: none;
 }
 
