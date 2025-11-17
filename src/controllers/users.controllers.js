@@ -15,7 +15,10 @@ import * as model from '../model/users.model.js'
 
 export const verifySesionOpen = (req, res) => {
     //si llego hasta aqui, se ha verificado un token valido, hay un usuario con una sesion abierta
-    res.status(202).json({ message: "sesion abierta" })
+    //y ya disponemos de req.user con los datos del payload
+    const { type } = req.user
+    if(type === 1) { return res.status(100).json({message: 'Administrador'})} //status(100)continue  
+    res.status(202).json({ message: "Usuario en sesion" })
     //status(202) aceptado
 }
 
@@ -93,10 +96,12 @@ export const login = async (req, res) => {
         sameSite: 'strict', // solo se puede acceder desde el mismo dominio
         // maxAge: 1000 * 60 * 60 //la cookie tiene un tiempo de validez de una hora
     })
-
+    
+    
     //creo data para enviarla al cliente con el proposito de guardarla en el localStorage,
     //para mostrar el nombre del  usuario en sesion
     const data = user[0].Name
+    // const data = {nombre:user[0].Name, tipo:user[0].Type_user }
     res.status(202).json({ message: "sesion iniciada ", data })
 }
 

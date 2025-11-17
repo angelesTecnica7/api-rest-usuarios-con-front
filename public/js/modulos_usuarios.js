@@ -2,11 +2,11 @@
 /*              verificar si hay sesion abierta         */
 /********************************************************/
 document.addEventListener("DOMContentLoaded", () => {
+    
     // cargo la pagina, verifico si hay sesion abierta,o sea, si existe el token y es valido
     // de haber sesion muestro perfil y cierre de sesion
     // de no haber sesion muestro login y registrar
-
-  
+    // el mismo codigo funciona para todas las rutas abiertas o protegidas
 
     //funcion que envia los datos al datos al backend para que sean registrados
     const InSesion = async () => {
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = enSesion.status
         // console.log(response)
         if (response === 202) {
+
             //recuperamos el nombre del usuario del localStorage y lo mostramos
             const usuario = JSON.parse(localStorage.getItem('user'))
             document.querySelector('#usuario').innerHTML = `<p class="usuario">${usuario}</p>`
@@ -158,6 +159,7 @@ formLogin.addEventListener('submit', (event) => {
             document.querySelector('#logout').style.display = 'block'
             document.querySelector('#registro').style.display = 'none'
             document.querySelector('#login').style.display = 'none'
+       
         } catch (error) {
             alert('Error')
         }
