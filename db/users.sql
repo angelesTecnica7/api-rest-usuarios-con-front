@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-09-2025 a las 17:07:25
+-- Tiempo de generación: 18-11-2025 a las 11:41:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,10 +31,18 @@ CREATE TABLE `users` (
   `ID_user` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `Image` varchar(50) NOT NULL,
+  `Image` varchar(50) DEFAULT NULL,
   `Pass` varchar(100) NOT NULL,
   `Type_user` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`ID_user`, `Name`, `Email`, `Image`, `Pass`, `Type_user`) VALUES
+(1, 'Administrador', 'admin@gmail.com', '1763462253445.jpg', '$2b$10$DUMFZ9Fl..0Wxg8AfB/wfeABGFvRKklWGjKxtNRAZEy5J.oiP/yV2', 1),
+(2, 'Ignacio', 'nacho@gmail.com', NULL, '$2b$10$h0LR1PjRPX/WqOWD53uYue/5Jm4PyiN2ohgv3lwGlaEKwNCulLu1.', 0);
 
 --
 -- Índices para tablas volcadas
@@ -54,7 +62,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

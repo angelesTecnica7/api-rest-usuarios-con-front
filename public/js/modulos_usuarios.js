@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const enSesion = await fetch(endpoint)
         //obtengo la respuesta del backend, en este caso un estado
         const response = enSesion.status
-        // console.log(response)
-        if (response === 202) {
-
+        console.log(response)
+        if (response === 202 || response === 201) {
             //recuperamos el nombre del usuario del localStorage y lo mostramos
             const usuario = JSON.parse(localStorage.getItem('user'))
             document.querySelector('#usuario').innerHTML = `<p class="usuario">${usuario}</p>`

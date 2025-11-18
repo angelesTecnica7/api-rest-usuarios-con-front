@@ -17,7 +17,10 @@ export const verifySesionOpen = (req, res) => {
     //si llego hasta aqui, se ha verificado un token valido, hay un usuario con una sesion abierta
     //y ya disponemos de req.user con los datos del payload
     const { type } = req.user
-    if(type === 1) { return res.status(100).json({message: 'Administrador'})} //status(100)continue  
+ 
+    if(type == 1 ) {
+        return res.status(201).json({message: 'Administrador'})
+    } 
     res.status(202).json({ message: "Usuario en sesion" })
     //status(202) aceptado
 }
