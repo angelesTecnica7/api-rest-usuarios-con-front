@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //ejecutamos la funcion creada
     InSesion()
 
-})// fin del DOMContentLoaded
+// })// fin del DOMContentLoaded
 
 /********************************************************/
 /*               REGISTRAR USUARIO                      */
@@ -497,7 +497,7 @@ const deleteAccount = async () => {
 
 
 
-// })// fin del DOMContentLoaded
+})// fin del DOMContentLoaded
 
 //Esta funcion la utiliza deleteAccount para confirma la eliminacion de la cuenta antes de proceder
 function confirmarAccion() {
