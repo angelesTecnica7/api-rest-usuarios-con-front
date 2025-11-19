@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const isAdmin = async () => {
           //declaro en enpoint
-    const endpoint = 'http://localhost:3000/users/'
+    // const endpoint = 'http://localhost:3000/users/'
+    const endpoint = '/users/'
           const enSesion = await fetch(endpoint)
         //obtengo la respuesta del backend, en este caso un estado
         const response = enSesion.status
@@ -24,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelector('.btn_logout').addEventListener('click', () => {
     //declaramos en enpoint
-    const endpoint = 'http://localhost:3000/users/logout'
+    // const endpoint = 'http://localhost:3000/users/logout'
+    const endpoint = '/users/logout'
 
     const logout = async () => {
         try {

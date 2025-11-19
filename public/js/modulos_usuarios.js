@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //funcion que envia los datos al datos al backend para que sean registrados
     const InSesion = async () => {
           //declaro en enpoint
-    const endpoint = 'http://localhost:3000/users/'
+    // const endpoint = 'http://localhost:3000/users/'
+    const endpoint = '/users/'
         // try {
         const enSesion = await fetch(endpoint)
         //obtengo la respuesta del backend, en este caso un estado
@@ -65,7 +66,8 @@ formRegistro.addEventListener('submit', (event) => {
     //2DA PARTE: ENVIO LA PETICION Y LOS DATOS AL BACKEND Y ESPERO LA RESPUETA (REQUEST/RESPONSA)
     /********************************************************************************************/
     //declaro en enpoint
-    const endpoint = 'http://localhost:3000/users/register'
+    // const endpoint = 'http://localhost:3000/users/register'
+    const endpoint = '/users/register'
 
     //funcion que envia los datos al datos al backend para que sean registrados
     const enviarNvoUsuario = async () => {
@@ -128,7 +130,8 @@ formLogin.addEventListener('submit', (event) => {
     //2DA PARTE: ENVIO LA PETICION Y LOS DATOS AL BACKEND Y ESPERO LA RESPUETA (REQUEST/RESPONSA)
     /********************************************************************************************/
     //declaro en enpoint
-    const endpoint = 'http://localhost:3000/users/login'
+    // const endpoint = 'http://localhost:3000/users/login'
+    const endpoint = '/users/login'
 
     //funcion que envia los datos al datos al backend para que sean registrados
     const enviarDatosLogin = async () => {
@@ -176,7 +179,8 @@ formLogin.addEventListener('submit', (event) => {
 
 document.querySelector('.btn_logout').addEventListener('click', () => {
     //declaramos en enpoint
-    const endpoint = 'http://localhost:3000/users/logout'
+    // const endpoint = 'http://localhost:3000/users/logout'
+    const endpoint = '/users/logout'
 
     const logout = async () => {
         try {
@@ -218,7 +222,8 @@ btn_perfil.addEventListener('click', () => {
 
     //peticion al backend de los datos del usurio, armado y muestra de perfil
     const showAccount = async () => {
-        const endpoint = `http://localhost:3000/users/account`
+        // const endpoint = '`http://localhost:3000/users/account`
+        const endpoint = '/users/account'
         try {
             //request al backend de los datos del usuario
             const verPerfil = await fetch(endpoint)
@@ -281,7 +286,8 @@ document.querySelector('#btn_act_datos').addEventListener('click', () => {
         //2DA PARTE: ENVIO LA PETICION Y LOS DATOS AL BACKEND Y ESPERO LA RESPUETA (REQUEST/RESPONSA)
         /********************************************************************************************/
         //declaramos en enpoint
-        const endpoint = 'http://localhost:3000/users/upDate'
+        // const endpoint = 'http://localhost:3000/users/upDate'
+        const endpoint = '/users/upDate'
 
         //creamos la funcion que envia los datos al datos al backend para que sean registrados
         const update_User = async () => {
@@ -351,7 +357,8 @@ document.querySelector('#btn_up_imagen').addEventListener('click', () => {
         const formData = new FormData(form);
 
         //declaro en enpoint
-        const endpoint = 'http://localhost:3000/users/image'
+        // const endpoint = 'http://localhost:3000/users/image'
+        const endpoint = '/users/image'
 
         const subirImagen = async () => {
             try {
@@ -426,7 +433,8 @@ document.querySelector('#btn_change_pass').addEventListener('click', () => {
         //2DA PARTE: ENVIO LA PETICION Y LOS DATOS AL BACKEND Y ESPERO LA RESPUETA (REQUEST/RESPONSA)
         /********************************************************************************************/
         //declaramos en enpoint
-        const endpoint = 'http://localhost:3000/users/setPassword'
+        // const endpoint = 'http://localhost:3000/users/setPassword'
+        const endpoint = '/users/setPassword'
 
         //creamos la funcion que envia la nueva contraseña y la actualiza
         const changePass = async () => {
@@ -463,7 +471,8 @@ document.querySelector('#btn_change_pass').addEventListener('click', () => {
 /********************************************************/
 
 //declaramos el enpoint
-const endpoint = 'http://localhost:3000/users/deleteAccount'
+// const endpoint = 'http://localhost:3000/users/deleteAccount'
+const endpoint = '/users/deleteAccount'
 
 //enviamos la peticion de delete al backend
 const deleteAccount = async () => {
