@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const enSesion = await fetch(endpoint)
         //obtengo la respuesta del backend, en este caso un estado
         const response = enSesion.status
-        console.log(response)
+        // console.log(response)
         if (response === 202 || response === 201) {
             //recuperamos el nombre del usuario del localStorage y lo mostramos
             const usuario = JSON.parse(localStorage.getItem('user'))
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //ejecutamos la funcion creada
     InSesion()
 
+})// fin del DOMContentLoaded
 
 /********************************************************/
 /*               REGISTRAR USUARIO                      */
@@ -494,6 +495,10 @@ const deleteAccount = async () => {
     }
 }
 
+
+
+// })// fin del DOMContentLoaded
+
 //Esta funcion la utiliza deleteAccount para confirma la eliminacion de la cuenta antes de proceder
 function confirmarAccion() {
     // Muestra el cuadro de diálogo y almacena la respuesta en userChoice
@@ -505,5 +510,3 @@ function confirmarAccion() {
         alert("¡Cuenta eliminada!");
     }
 }
-
-})// fin del DOMContentLoaded
